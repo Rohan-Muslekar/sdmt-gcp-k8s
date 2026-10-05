@@ -1,0 +1,17 @@
+# MySQL service of type LoadBalancer. GKE provisions an external IP on port
+# 3306 so the database can be reached from outside the cluster with
+#   mysql -uuser -psofe3980u -h<EXTERNAL-IP>
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  labels:
+    app: mysql
+spec:
+  type: LoadBalancer
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

@@ -1,0 +1,36 @@
+# MySQL deployment: one pod running the official mysql/mysql-server image.
+# The env vars seed a root password, a normal user, and the Readings schema so
+# the pod comes up ready to accept connections. MYSQL_ROOT_HOST="%" lets root
+# connect from outside the pod (needed when reaching MySQL over the service IP).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql/mysql-server
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: sofe3980u
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+            - name: MYSQL_USER
+              value: user
+            - name: MYSQL_PASSWORD
+              value: sofe3980u
+            - name: MYSQL_DATABASE
+              value: Readings
+          ports:
+            - containerPort: 3306

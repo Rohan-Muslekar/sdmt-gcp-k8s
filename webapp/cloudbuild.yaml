@@ -1,0 +1,17 @@
+# Builds the Binary Calculator image entirely in Google Cloud Build (no local
+# docker needed): step 1 compiles the war with Maven (runs the unit tests),
+# step 2 builds the image from the Dockerfile and pushes it to Artifact Registry.
+steps:
+  - name: 'maven:3.9-eclipse-temurin-11'
+    entrypoint: mvn
+    args: ['package']
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - 'northamerica-northeast2-docker.pkg.dev/project-177cbd41-037f-441e-80d/sofe3980u/binarycalculator'
+      - .
+images:
+  - 'northamerica-northeast2-docker.pkg.dev/project-177cbd41-037f-441e-80d/sofe3980u/binarycalculator'
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -1,0 +1,17 @@
+# service account keys - never commit
+service_account.json
+*.json
+
+# java / maven build output
+target/
+*.war
+*.class
+
+# generated report (only the report, not the app's HTML templates)
+101006689-k8s-report.html
+101006689-k8s-report.pdf
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
